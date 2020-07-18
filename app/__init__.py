@@ -26,6 +26,8 @@ def create_app(config_class=Config):
     login.init_app(app)
     #bootstrap = Bootstrap(app)
     
+    
+    
     from app.auth import bp as auth_bp
     app.register_blueprint(auth_bp)
     
