@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        
+        <meta name="viewport" content="width=device-width initial-scale=1"><meta name="author" content="princely okwuego">
+        <meta name="description" content= "">
+    	
+    	<link href="https://fonts.googleapis.com/css?family=Lora|Ubuntu:300,400,700&amp;display=swap" rel="stylesheet" />
+    	<link href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" rel="stylesheet" />
+    	<!--<link href="https://wec.org.ng/wec/style-muritum.css" rel="stylesheet" />-->
+		<link href="{{ url_for('static', filename='style-muritum.css') }}" rel="stylesheet" />
+		<!--<link href="style.css" rel="stylesheet" />-->
+    	<title>FINAL EXAMS</title>
+    	
+    </head>
+    <body>
+        <header>
+            <div class="container container-flex">
+                <div class="site-title">
+                <h1>WritePencil</h1>
+            
+                <p class="subtitle">Computer Institute</p>
+                </div>
+                
+                <nav>
+                    <ul>
+                        <li><a href="#">Final Exam</a></li>
+                        
+                    </ul>
+                </nav>
+            </div><!--close container-->
+        </header>
+        
+    
+        <div class="container container-flex">
+            <main role="main">
+				
+				{% with messages = get_flashed_messages() %}
+				{% if messages %}
+				<ul>
+					{% for message in messages %}
+					<li>{{ message }}</li>
+					{% endfor %}
+				</ul>
+				{% endif %}
+				{% endwith %}
+				{% block content %}{% endblock %}
+						
+            </main>
+        </div>
+        <!-- paste ad here -->
+    
+        <footer>
+            <p><strong>Federal Polytechnic Nekede Owerri</strong></p>
+            <!--<p>Images are Painting by <a href="https://androidjones.com/" class="article-read-more">Android Jones</a></p>-->
+            
+            <p>Copyright 2020</p>
+        </footer>
+    </body>
+</html>
