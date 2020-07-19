@@ -17,7 +17,7 @@ bp = Blueprint('exams', __name__)
 @bp.route('/exams',methods=['GET', 'POST'])
 @login_required
 def exams():
-    if date != '07/20/2020' and time <= '12:00:00':
+    if date == '07/20/2020' and time <= '12:00:00':
         
         return render_template('exams/time_out.html')
 
