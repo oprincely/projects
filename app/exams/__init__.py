@@ -3,7 +3,12 @@ from flask import Blueprint, render_template, url_for, redirect, request, sessio
 from flask_login import current_user, login_user,login_required,logout_user
 from app import db
 from app.models import User
-import datetime
+from datetime import datetime
+
+now = datetime.now() # current date and time
+
+date = now.strftime("%m/%d/%Y")
+time = now.strftime("%H:%M:%S")
 
 bp = Blueprint('exams', __name__)
 
@@ -12,8 +17,13 @@ bp = Blueprint('exams', __name__)
 @bp.route('/exams',methods=['GET', 'POST'])
 @login_required
 def exams():
-    marks = []
+    if date != '07/20/2020' and time <= '12:00:00':
+        
+        return render_template('exams/time_out.html')
+
     if request.method == 'POST':
+        
+        marks = []
         
         answer1 = request.form['answer1']
         if answer1 == 'A,B,C,D':
@@ -99,8 +109,16 @@ def exams():
         else:
             marks.append(0)
         
+        user = User.query.filter_by(username=current_user.username).first()
+        
         total_marks = sum(marks) #89.67999999999999
-        print(total_marks)
+        
+        
+        if user.total_mark is None:
+            user.total_mark = total_marks
+            db.session.commit()
+        
+
         return render_template('exams/marks.html',total_marks=total_marks)
         
     return render_template('exams/final_exams.html')
@@ -109,4 +127,7 @@ def exams():
 @bp.route('/mark',methods=['GET'])
 @login_required
 def mark():
+    user = User.query.filter_by(username=current_user.username).first()
+    print('user = ',user.total_mark)
+    total_marks = user.total_mark
     return render_template('exams/marks.html',total_marks=total_marks)
